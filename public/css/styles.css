@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Dosis", sans-serif;
+    background-color: #fafaf7;
+    color: #333;
+}
+
+.shop-btn {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    font-size: 20px;
+    padding-top: 18px;
+}
+
+h1, h2, h3 {
+    font-family: "Fjalla One", sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+p {
+    padding: 10px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #e8f5e9;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    margin-left: 1rem;
+}
+
+main {
+    padding: 2rem;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    background-color: #e8f5e9;
+}

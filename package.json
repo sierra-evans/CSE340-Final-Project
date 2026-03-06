@@ -2,11 +2,12 @@
   "name": "final-project",
   "version": "1.0.0",
   "description": "Meadow Market",
-  "main": "app.js",
+  "main": "src/server.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/app.js",
-    "dev": "node src/app.js"
+    "start": "node src/server.js",
+    "dev": "node src/server.js"
   },
   "keywords": [],
   "author": "",

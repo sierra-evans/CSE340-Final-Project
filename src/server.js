@@ -9,7 +9,7 @@ const app = express();
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static('src/public'));
+app.use(express.static('public'));
 
 // Session
 app.use(session({
@@ -19,9 +19,13 @@ app.use(session({
   cookie: { secure: false }
 }));
 
-// Test route
+// View Engine
+app.set('view engine', 'ejs');
+app.set('views', 'src/views');
+
+// Routes
 app.get('/', (req, res) => {
-  res.send('Meadow Market is running!');
+  res.render('home');
 });
 
 // Start server
