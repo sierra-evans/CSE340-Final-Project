@@ -1,6 +1,8 @@
 import express from 'express';
 import session from 'express-session';
 import dotenv from 'dotenv';
+import indexRoutes from './routes/indexRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 
 dotenv.config();
 
@@ -24,9 +26,8 @@ app.set('view engine', 'ejs');
 app.set('views', 'src/views');
 
 // Routes
-app.get('/', (req, res) => {
-  res.render('home');
-});
+app.use('/', indexRoutes);
+app.use('/auth', authRoutes);
 
 // Start server
 const PORT = process.env.PORT || 3000;
