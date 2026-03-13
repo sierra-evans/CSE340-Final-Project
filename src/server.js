@@ -1,6 +1,7 @@
 import express from 'express';
 import session from 'express-session';
 import dotenv from 'dotenv';
+import pool from './config/db.js';
 import indexRoutes from './routes/indexRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 
