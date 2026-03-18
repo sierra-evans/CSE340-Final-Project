@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import pool from './config/db.js';
 import indexRoutes from './routes/indexRoutes.js';
 import authRoutes from './routes/authRoutes.js';
+import flash from './middleware/flash.js';
 
 dotenv.config();
 
@@ -21,6 +22,13 @@ app.use(session({
   saveUninitialized: false,
   cookie: { secure: false }
 }));
+
+// Flash Messaging
+app.use(flash);
+app.use((req, res, next) => {
+  res.locals.user = req.session.user || null;
+  next();
+});
 
 // View Engine
 app.set('view engine', 'ejs');
