@@ -2,9 +2,14 @@ import express from 'express';
 import session from 'express-session';
 import dotenv from 'dotenv';
 import pool from './config/db.js';
+import flash from './middleware/flash.js';
 import indexRoutes from './routes/indexRoutes.js';
 import authRoutes from './routes/authRoutes.js';
-import flash from './middleware/flash.js';
+import productRoutes from './routes/productRoutes.js';
+import cartRoutes from './routes/cartRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
+import sellerRoutes from './routes/sellerRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 
 dotenv.config();
 
@@ -37,6 +42,11 @@ app.set('views', 'src/views');
 // Routes
 app.use('/', indexRoutes);
 app.use('/auth', authRoutes);
+app.use('/products', productRoutes);
+app.use('/cart', cartRoutes);
+app.use('/orders', orderRoutes);
+app.use('/seller', sellerRoutes);
+app.use('/admin', adminRoutes);
 
 // Start server
 const PORT = process.env.PORT || 3000;
