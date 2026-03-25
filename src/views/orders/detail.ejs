@@ -1,0 +1,39 @@
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+
+<main>
+  <div class="order-detail">
+    <h1>Order #<%= order.id %></h1>
+    <p>Status: <span class="status-badge status-<%= order.status %>"><%= order.status %></span></p>
+    <p>Date: <%= new Date(order.created_at).toLocaleDateString() %></p>
+
+    <table class="dashboard-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% orderItems.forEach(item => { %>
+          <tr>
+            <td><%= item.title %></td>
+            <td><%= item.quantity %></td>
+            <td>$<%= item.price %></td>
+            <td>$<%= (item.price * item.quantity).toFixed(2) %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <div class="order-total">
+      <h3>Total: $<%= order.total_price %></h3>
+    </div>
+
+    <a href="/orders" class="btn btn-outline">Back to Orders</a>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>

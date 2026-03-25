@@ -304,6 +304,50 @@ nav a {
 }
 
 /* ====================
+      Cart & Orders
+=======================*/
+.cart-total {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+}
+
+.cart-total h3 {
+    text-align: left;
+    padding: 0;
+    color: var(--green-dark);
+}
+
+.order-detail {
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+.order-detail h1 {
+    text-align: left;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+.order-total {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+}
+
+.order-total h3 {
+    text-align: right;
+    padding: 0;
+    color: var(--green-dark);
+}
+
+/* ====================
         Footer
 =======================*/
 footer {
