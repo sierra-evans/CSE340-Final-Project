@@ -3,7 +3,110 @@
 
 <main>
   <h1>Admin Dashboard</h1>
-  <p>Manage users, products, and orders here.</p>
+
+  <!-- Pending Products -->
+  <section>
+    <h2>Pending Products</h2>
+    <% if (pendingProducts.length === 0) { %>
+      <p>No products awaiting approval.</p>
+    <% } else { %>
+      <table class="dashboard-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Seller</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% pendingProducts.forEach(product => { %>
+            <tr>
+              <td><%= product.title %></td>
+              <td><%= product.seller_name %></td>
+              <td>$<%= product.price %></td>
+              <td>
+                <form action="/admin/products/<%= product.id %>/approve" method="POST" style="display:inline;">
+                  <button type="submit" class="btn btn-primary">Approve</button>
+                </form>
+                <form action="/admin/products/<%= product.id %>/reject" method="POST" style="display:inline;">
+                  <button type="submit" class="btn btn-danger">Reject</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </section>
+
+  <!-- Users -->
+  <section>
+    <h2>Manage Users</h2>
+    <table class="dashboard-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(user => { %>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.role_name %></td>
+            <td>
+              <form action="/admin/users/<%= user.id %>/role" method="POST" style="display:inline;">
+                <select name="role">
+                  <option value="buyer" <%= user.role_name === 'buyer' ? 'selected' : '' %>>Buyer</option>
+                  <option value="seller" <%= user.role_name === 'seller' ? 'selected' : '' %>>Seller</option>
+                  <option value="admin" <%= user.role_name === 'admin' ? 'selected' : '' %>>Admin</option>
+                </select>
+                <button type="submit" class="btn btn-outline">Update</button>
+              </form>
+              <form action="/admin/users/<%= user.id %>/delete" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Orders -->
+  <section>
+    <h2>All Orders</h2>
+    <% if (orders.length === 0) { %>
+      <p>No orders yet.</p>
+    <% } else { %>
+      <table class="dashboard-table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Buyer</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% orders.forEach(order => { %>
+            <tr>
+              <td>#<%= order.id %></td>
+              <td><%= order.buyer_name %></td>
+              <td>$<%= order.total_price %></td>
+              <td><span class="status-badge status-<%= order.status %>"><%= order.status %></span></td>
+              <td><%= new Date(order.created_at).toLocaleDateString() %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </section>
 </main>
 
 <%- include('../partials/footer') %>
