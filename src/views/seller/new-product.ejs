@@ -1,0 +1,44 @@
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+
+<main>
+  <div class="auth-container">
+    <h2>Add New Product</h2>
+    <p>Your product will be reviewed before it goes live.</p>
+
+    <form action="/seller/products" method="POST">
+      <div class="form-group">
+        <label for="title">Product Title</label>
+        <input type="text" id="title" name="title" required />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="4" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="price">Price ($)</label>
+        <input type="number" id="price" name="price" step="0.01" min="0" required />
+      </div>
+
+      <div class="form-group">
+        <label for="stock_quantity">Stock Quantity</label>
+        <input type="number" id="stock_quantity" name="stock_quantity" min="0" required />
+      </div>
+
+      <div class="form-group">
+        <label for="category_id">Category</label>
+        <select id="category_id" name="category_id">
+          <% categories.forEach(category => { %>
+            <option value="<%= category.id %>"><%= category.name %></option>
+          <% }) %>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit for Approval</button>
+    </form>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>

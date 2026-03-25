@@ -233,6 +233,77 @@ nav a {
 }
 
 /* ====================
+      Dashboard
+=======================*/
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+    text-align: left;
+    padding: 0;
+}
+
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.dashboard-table th,
+.dashboard-table td {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+}
+
+.dashboard-table th {
+    background-color: var(--green-light);
+    font-weight: 700;
+    color: var(--green-dark);
+}
+
+.status-badge {
+    padding: 0.3rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-approved {
+    background-color: var(--green-light);
+    color: var(--green-dark);
+}
+
+.status-rejected {
+    background-color: #fde8e8;
+    color: #c0392b;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: var(--white);
+    border-color: #e74c3c;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+/* ====================
         Footer
 =======================*/
 footer {

@@ -1,0 +1,46 @@
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+
+<main>
+  <div class="auth-container">
+    <h2>Edit Product</h2>
+
+    <form action="/seller/products/<%= product.id %>/edit" method="POST">
+      <div class="form-group">
+        <label for="title">Product Title</label>
+        <input type="text" id="title" name="title" value="<%= product.title %>" required />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="4" required><%= product.description %></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="price">Price ($)</label>
+        <input type="number" id="price" name="price" step="0.01" min="0" value="<%= product.price %>" required />
+      </div>
+
+      <div class="form-group">
+        <label for="stock_quantity">Stock Quantity</label>
+        <input type="number" id="stock_quantity" name="stock_quantity" min="0" value="<%= product.stock_quantity %>" required />
+      </div>
+
+      <div class="form-group">
+        <label for="category_id">Category</label>
+        <select id="category_id" name="category_id">
+          <% categories.forEach(category => { %>
+            <option value="<%= category.id %>" <%= product.category_id === category.id ? 'selected' : '' %>>
+              <%= category.name %>
+            </option>
+          <% }) %>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+      <a href="/seller/products" class="btn btn-outline">Cancel</a>
+    </form>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>

@@ -1,9 +1,43 @@
-<%- include('../partials/header') %> 
+<%- include('../partials/header') %>
 <%- include('../partials/nav') %>
 
 <main>
-  <h1>Seller Dashboard</h1>
-  <p>Manage your products and orders here.</p>
+  <div class="dashboard-header">
+    <h1>My Shop</h1>
+    <a href="/seller/products/new" class="btn btn-primary">Add New Product</a>
+  </div>
+
+  <% if (products.length === 0) { %>
+    <p>You have no products yet. Add one to get started!</p>
+  <% } else { %>
+    <table class="dashboard-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% products.forEach(product => { %>
+          <tr>
+            <td><%= product.title %></td>
+            <td>$<%= product.price %></td>
+            <td><%= product.stock_quantity %></td>
+            <td><span class="status-badge status-<%= product.status %>"><%= product.status %></span></td>
+            <td>
+              <a href="/seller/products/<%= product.id %>/edit" class="btn btn-outline">Edit</a>
+              <form action="/seller/products/<%= product.id %>/delete" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
 </main>
 
 <%- include('../partials/footer') %>
