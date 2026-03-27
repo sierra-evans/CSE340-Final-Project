@@ -37,33 +37,19 @@ export const getPendingProducts = async () => {
 };
 
 // Create product
-export const createProduct = async (
-  sellerId,
-  categoryId,
-  title,
-  description,
-  price,
-  stockQuantity
-) => {
+export const createProduct = async (sellerId, categoryId, title, description, price, stockQuantity, imageUrl) => {
   const result = await pool.query(
-    "INSERT INTO products (seller_id, category_id, title, description, price, stock_quantity, status) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
-    [sellerId, categoryId, title, description, price, stockQuantity, "pending"]
+    'INSERT INTO products (seller_id, category_id, title, description, price, stock_quantity, status, image_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
+    [sellerId, categoryId, title, description, price, stockQuantity, 'pending', imageUrl]
   );
   return result.rows[0];
 };
 
 // Update product
-export const updateProduct = async (
-  id,
-  title,
-  description,
-  price,
-  stockQuantity,
-  categoryId
-) => {
+export const updateProduct = async (id, title, description, price, stockQuantity, categoryId, imageUrl) => {
   const result = await pool.query(
-    "UPDATE products SET title = $1, description = $2, price = $3, stock_quantity = $4, category_id = $5 WHERE id = $6 RETURNING *",
-    [title, description, price, stockQuantity, categoryId, id]
+    'UPDATE products SET title = $1, description = $2, price = $3, stock_quantity = $4, category_id = $5, image_url = $6 WHERE id = $7 RETURNING *',
+    [title, description, price, stockQuantity, categoryId, imageUrl, id]
   );
   return result.rows[0];
 };

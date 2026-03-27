@@ -4,6 +4,11 @@
 <main>
   <div class="product-detail">
     <div class="product-detail-info">
+      <% if (product.image_url) { %>
+        <img src="<%= product.image_url %>" alt="<%= product.title %>" class="product-detail-image" />
+      <% } else { %>
+        <div class="product-image-placeholder-lg">🌿</div>
+      <% } %>
       <h1><%= product.title %></h1>
       <p class="product-seller">Sold by <%= product.seller_name %></p>
       <p class="product-price">$<%= product.price %></p>

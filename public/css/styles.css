@@ -232,6 +232,46 @@ nav a {
     padding: 0;
 }
 
+.product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+}
+
+.product-image-placeholder {
+    width: 100%;
+    height: 200px;
+    background-color: var(--green-pale);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    margin-bottom: 0.75rem;
+}
+
+.product-detail-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+}
+
+.product-image-placeholder-lg {
+    width: 100%;
+    height: 400px;
+    background-color: var(--green-pale);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+}
+
 /* ====================
       Dashboard
 =======================*/
@@ -459,6 +499,42 @@ nav a {
 .status-step.active {
     background-color: var(--green-dark);
     color: var(--white);
+}
+
+/* ====================
+      Error
+=======================*/
+.error-container {
+    max-width: 600px;
+    margin: 4rem auto;
+    text-align: center;
+    padding: 2.5rem;
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+.error-container h1 {
+    font-size: 5rem;
+    color: var(--green-dark);
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+.error-container p {
+    color: var(--text-mid);
+    margin-bottom: 2rem;
+}
+
+.error-detail {
+    background: var(--green-pale);
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    text-align: left;
+    overflow-x: auto;
+    margin-bottom: 2rem;
 }
 
 /* ====================

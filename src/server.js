@@ -11,6 +11,7 @@ import orderRoutes from './routes/orderRoutes.js';
 import sellerRoutes from './routes/sellerRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import reviewRoutes from './routes/reviewRoutes.js';
+import errorHandler from './middleware/errorHandler.js';
 
 dotenv.config();
 
@@ -49,6 +50,7 @@ app.use('/orders', orderRoutes);
 app.use('/seller', sellerRoutes);
 app.use('/admin', adminRoutes);
 app.use('/reviews', reviewRoutes);
+app.use(errorHandler);
 
 // Start server
 const PORT = process.env.PORT || 3000;

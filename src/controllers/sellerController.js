@@ -34,7 +34,7 @@ export const getNewProduct = async (req, res, next) => {
 
 // POST /seller/products
 export const postNewProduct = async (req, res, next) => {
-    const { title, description, price, stock_quantity, category_id } = req.body;
+    const { title, description, price, stock_quantity, category_id, image_url } = req.body;
     try {
         await createProduct(
             req.session.user.id,
@@ -42,7 +42,8 @@ export const postNewProduct = async (req, res, next) => {
             title,
             description,
             price,
-            stock_quantity
+            stock_quantity,
+            image_url
         );
         req.flash('success', 'Product submitted for approval');
         res.redirect('/seller/products');
@@ -68,7 +69,7 @@ export const getEditProduct = async (req, res, next) => {
 
 // POST /seller/products/:id/edit
 export const postEditProduct = async (req, res, next) => {
-    const { title, description, price, stock_quantity, category_id } = req.body;
+    const { title, description, price, stock_quantity, category_id, image_url } = req.body;
     try {
         await updateProduct(
             req.params.id,
@@ -76,7 +77,8 @@ export const postEditProduct = async (req, res, next) => {
             description,
             price,
             stock_quantity,
-            category_id
+            category_id,
+            image_url
         );
         req.flash('success', 'Product updated successfully');
         res.redirect('/seller/products');
