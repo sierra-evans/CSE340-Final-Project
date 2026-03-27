@@ -18,6 +18,15 @@ export const getReviewsByUser = async (userId) => {
   return result.rows;
 };
 
+// Get single review by id
+export const getReviewById = async (id) => {
+  const result = await pool.query(
+    'SELECT * FROM reviews WHERE id = $1',
+    [id]
+  );
+  return result.rows[0];
+};
+
 // Create a review
 export const createReview = async (userId, productId, rating, comment) => {
   const result = await pool.query(

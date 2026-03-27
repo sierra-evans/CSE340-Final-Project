@@ -1,4 +1,5 @@
 import { getAllProducts, getProductById } from '../models/productModel.js';
+import { getReviewsByProduct } from '../models/reviewModel.js';
 
 // GET /products
 export const getProducts = async (req, res, next) => {
@@ -18,7 +19,8 @@ export const getProductById_ctrl = async (req, res, next) => {
             req.flash('error', 'Product not found');
             return res.redirect('/products');
         }
-        res.render('products/detail', { product });
+        const reviews = await getReviewsByProduct(req.params.id);
+        res.render('products/detail', { product, reviews });
     } catch (err) {
         next(err);
     }

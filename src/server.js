@@ -10,6 +10,7 @@ import cartRoutes from './routes/cartRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 import sellerRoutes from './routes/sellerRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
+import reviewRoutes from './routes/reviewRoutes.js';
 
 dotenv.config();
 
@@ -47,6 +48,7 @@ app.use('/cart', cartRoutes);
 app.use('/orders', orderRoutes);
 app.use('/seller', sellerRoutes);
 app.use('/admin', adminRoutes);
+app.use('/reviews', reviewRoutes);
 
 // Start server
 const PORT = process.env.PORT || 3000;
