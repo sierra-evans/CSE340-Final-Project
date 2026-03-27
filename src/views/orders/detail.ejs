@@ -3,9 +3,20 @@
 
 <main>
   <div class="order-detail">
-    <h1>Order #<%= order.id %></h1>
-    <p>Status: <span class="status-badge status-<%= order.status %>"><%= order.status %></span></p>
-    <p>Date: <%= new Date(order.created_at).toLocaleDateString() %></p>
+    <h1>Order #<%= order.id %>
+    </h1>
+
+    <div class="order-status-bar">
+      <% const statuses=['placed', 'processing' , 'shipped' , 'delivered' , 'completed' ]; %>
+        <% statuses.forEach(status=> { %>
+          <div class="status-step <%= order.status === status ? 'active' : '' %>">
+            <%= status %>
+          </div>
+          <% }) %>
+    </div>
+
+    <p>Date: <%= new Date(order.created_at).toLocaleDateString() %>
+    </p>
 
     <table class="dashboard-table">
       <thead>
@@ -17,19 +28,26 @@
         </tr>
       </thead>
       <tbody>
-        <% orderItems.forEach(item => { %>
+        <% orderItems.forEach(item=> { %>
           <tr>
-            <td><%= item.title %></td>
-            <td><%= item.quantity %></td>
-            <td>$<%= item.price %></td>
-            <td>$<%= (item.price * item.quantity).toFixed(2) %></td>
+            <td>
+              <%= item.title %>
+            </td>
+            <td>
+              <%= item.quantity %>
+            </td>
+            <td>$<%= item.price %>
+            </td>
+            <td>$<%= (item.price * item.quantity).toFixed(2) %>
+            </td>
           </tr>
-        <% }) %>
+          <% }) %>
       </tbody>
     </table>
 
     <div class="order-total">
-      <h3>Total: $<%= order.total_price %></h3>
+      <h3>Total: $<%= order.total_price %>
+      </h3>
     </div>
 
     <a href="/orders" class="btn btn-outline">Back to Orders</a>

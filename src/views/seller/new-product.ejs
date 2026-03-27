@@ -30,9 +30,11 @@
       <div class="form-group">
         <label for="category_id">Category</label>
         <select id="category_id" name="category_id">
-          <% categories.forEach(category => { %>
-            <option value="<%= category.id %>"><%= category.name %></option>
-          <% }) %>
+          <% categories.forEach(category=> { %>
+            <option value="<%= category.id %>">
+              <%= category.name %>
+            </option>
+            <% }) %>
         </select>
       </div>
 

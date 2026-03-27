@@ -42,6 +42,26 @@ export const getOrderItems = async (orderId) => {
   return result.rows;
 };
 
+// Get orders for a seller's products
+export const getOrdersBySeller = async (sellerId) => {
+  const result = await pool.query(
+    `SELECT orders.*, users.name AS buyer_name, products.title AS product_title
+     FROM orders
+     JOIN order_items ON orders.id = order_items.order_id
+     JOIN products ON order_items.product_id = products.id
+     JOIN users ON orders.buyer_id = users.id
+     WHERE products.seller_id = $1
+     ORDER BY orders.created_at DESC`,
+    [sellerId]
+  );
+  return result.rows;
+};
+
+// Get all possible order statuses
+export const getOrderStatuses = () => {
+  return ['placed', 'processing', 'shipped', 'delivered', 'completed'];
+};
+
 // Update order status
 export const updateOrderStatus = async (id, status) => {
   const result = await pool.query(

@@ -1,0 +1,67 @@
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+
+<main>
+    <div class="dashboard-header">
+        <h1>My Orders</h1>
+        <a href="/seller/products" class="btn btn-outline">Back to Products</a>
+    </div>
+
+    <% if (orders.length===0) { %>
+        <p>No orders yet for your products.</p>
+        <% } else { %>
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Product</th>
+                        <th>Buyer</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Update Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% orders.forEach(order=> { %>
+                        <tr>
+                            <td>#<%= order.id %>
+                            </td>
+                            <td>
+                                <%= order.product_title %>
+                            </td>
+                            <td>
+                                <%= order.buyer_name %>
+                            </td>
+                            <td>$<%= order.total_price %>
+                            </td>
+                            <td>
+                                <span class="status-badge status-<%= order.status %>">
+                                    <%= order.status %>
+                                </span>
+                            </td>
+                            <td>
+                                <%= new Date(order.created_at).toLocaleDateString() %>
+                            </td>
+                            <td>
+                                <form action="/seller/orders/<%= order.id %>/status" method="POST"
+                                    style="display:flex; gap:0.5rem;">
+                                    <select name="status">
+                                        <% statuses.forEach(status=> { %>
+                                            <option value="<%= status %>" <%=order.status===status ? 'selected'
+                                                : '' %>>
+                                                <%= status %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                    <button type="submit" class="btn btn-outline">Update</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+            <% } %>
+</main>
+
+<%- include('../partials/footer') %>

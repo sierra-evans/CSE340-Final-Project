@@ -5,6 +5,11 @@ import {
     updateProduct,
     deleteProduct
 } from '../models/productModel.js';
+import {
+    getOrdersBySeller,
+    updateOrderStatus,
+    getOrderStatuses
+} from '../models/orderModel.js';
 import pool from '../config/db.js';
 
 // GET /seller/products
@@ -91,6 +96,29 @@ export const postDeleteProduct = async (req, res, next) => {
         await deleteProduct(req.params.id);
         req.flash('success', 'Product deleted successfully');
         res.redirect('/seller/products');
+    } catch (err) {
+        next(err);
+    }
+};
+
+// GET /seller/orders
+export const getSellerOrders = async (req, res, next) => {
+    try {
+        const orders = await getOrdersBySeller(req.session.user.id);
+        const statuses = getOrderStatuses();
+        res.render('seller/orders', { orders, statuses });
+    } catch (err) {
+        next(err);
+    }
+};
+
+// POST /seller/orders/:id/status
+export const postUpdateOrderStatus = async (req, res, next) => {
+    const { status } = req.body;
+    try {
+        await updateOrderStatus(req.params.id, status);
+        req.flash('success', 'Order status updated');
+        res.redirect('/seller/orders');
     } catch (err) {
         next(err);
     }

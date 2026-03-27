@@ -3,10 +3,13 @@
     <div>
         <a href="/products">Shop</a>
         <% if (user) { %>
-            <a href="/cart">Cart</a>
-            <a href="/orders">Orders</a>
+            <% if (user.role === 'buyer') { %>
+                <a href="/cart">Cart</a>
+                <a href="/orders">Orders</a>
+            <% } %>
             <% if (user.role === 'seller') { %>
                 <a href="/seller/products">My Shop</a>
+                <a href="/seller/orders">My Orders</a>
             <% } %>
             <% if (user.role === 'admin') { %>
                 <a href="/admin">Admin</a>

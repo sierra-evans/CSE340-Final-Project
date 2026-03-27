@@ -6,7 +6,9 @@ import {
   postNewProduct,
   getEditProduct,
   postEditProduct,
-  postDeleteProduct
+  postDeleteProduct,
+  getSellerOrders,
+  postUpdateOrderStatus
 } from '../controllers/sellerController.js';
 
 const router = express.Router();
@@ -17,5 +19,7 @@ router.post('/products', checkSeller, postNewProduct);
 router.get('/products/:id/edit', checkSeller, getEditProduct);
 router.post('/products/:id/edit', checkSeller, postEditProduct);
 router.post('/products/:id/delete', checkSeller, postDeleteProduct);
+router.get('/orders', checkSeller, getSellerOrders);
+router.post('/orders/:id/status', checkSeller, postUpdateOrderStatus);
 
 export default router;
