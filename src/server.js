@@ -23,13 +23,16 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Session
+app.set('trust proxy', 1);
+
 app.use(session({
   secret: process.env.SESSION_SECRET || 'dev-secret',
   resave: false,
   saveUninitialized: false,
   cookie: { 
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax' }
+    sameSite: 'none',
+    httpOnly: true }
 }));
 
 // Flash Messaging
