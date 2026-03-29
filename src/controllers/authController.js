@@ -60,19 +60,13 @@ export const postLogin = async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
-    console.log('Login attempt for:', email);
-
     const user = await getUserByEmail(email);
-    console.log('User found:', user ? 'yes' : 'no');
-
     if (!user) {
       req.flash("error", "Invalid email or password");
       return res.redirect("/auth/login");
     }
 
     const match = await bcrypt.compare(password, user.password_hash);
-    console.log('Password match:', match);
-
     if (!match) {
       req.flash("error", "Invalid email or password");
       return res.redirect("/auth/login");
@@ -83,7 +77,6 @@ export const postLogin = async (req, res, next) => {
       [user.role_id]
     );
     const roleName = roleResult.rows[0]?.name;
-    console.log('Role found:', roleName);
 
     req.session.user = {
       id: user.id,
@@ -94,17 +87,12 @@ export const postLogin = async (req, res, next) => {
     };
 
     req.session.save((err) => {
-      if (err) {
-        console.log('Session save error:', err);
-        return next(err);
-      }
-      console.log('Session saved successfully');
+      if (err) return next(err);
       req.flash("success", `Welcome back, ${user.name}!`);
       res.redirect("/");
     });
 
   } catch (err) {
-    console.log('Login error:', err);
     next(err);
   }
 };
