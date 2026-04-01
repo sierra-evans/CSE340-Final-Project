@@ -64,7 +64,7 @@
 
             <% if (user && user.role === 'admin') { %>
               <div class="review-actions">
-                <form action="/reviews/<%= review.id %>/delete" method="POST" style="display:inline;">
+                <form action="/admin/reviews/<%= review.id %>/delete" method="POST" style="display:inline;">
                   <input type="hidden" name="productId" value="<%= product.id %>">
                   <button type="submit" class="btn btn-danger">Remove Review</button>
                 </form>

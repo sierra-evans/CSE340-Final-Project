@@ -4,8 +4,9 @@ import {
     updateProductStatus,
     deleteProduct
 } from '../models/productModel.js';
-import { getAllUsers, updateUserRole, deleteUser } from '../models/userModel.js';
+import { getAllUsers, updateUserRole, deleteUser, getRoleByName } from '../models/userModel.js';
 import { getAllOrders } from '../models/orderModel.js';
+import { deleteReview } from '../models/reviewModel.js';
 import pool from '../config/db.js';
 
 // GET /admin
@@ -53,22 +54,34 @@ export const adminDeleteProduct = async (req, res, next) => {
     }
 };
 
+// POST /admin/reviews/:id/delete
+export const adminDeleteReview = async (req, res, next) => {
+    const { productId } = req.body;
+    try {
+      await deleteReview(req.params.id);
+      req.flash('success', 'Review removed');
+      res.redirect(`/products/${productId}`);
+    } catch (err) {
+      next(err);
+    }
+  };
+
 // POST /admin/users/:id/role
 export const updateRole = async (req, res, next) => {
     const { role } = req.body;
     try {
-        const roleResult = await pool.query(
-            'SELECT id FROM roles WHERE name = $1',
-            [role]
-        );
-        const roleId = roleResult.rows[0]?.id;
-        await updateUserRole(req.params.id, roleId);
-        req.flash('success', 'User role updated');
-        res.redirect('/admin');
+      const roleRow = await getRoleByName(role);
+      if (!roleRow) {
+        req.flash('error', 'Invalid role selected');
+        return res.redirect('/admin');
+      }
+      await updateUserRole(req.params.id, roleRow.id);
+      req.flash('success', 'User role updated');
+      res.redirect('/admin');
     } catch (err) {
-        next(err);
+      next(err);
     }
-};
+  };
 
 // POST /admin/users/:id/delete
 export const adminDeleteUser = async (req, res, next) => {

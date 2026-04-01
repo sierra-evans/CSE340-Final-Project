@@ -44,3 +44,12 @@ export const updateUserRole = async (userId, roleId) => {
 export const deleteUser = async (userId) => {
   await pool.query("DELETE FROM users WHERE id = $1", [userId]);
 };
+
+// Get role id by name
+export const getRoleByName = async (name) => {
+  const result = await pool.query(
+    'SELECT id FROM roles WHERE name = $1',
+    [name]
+  );
+  return result.rows[0];
+};
