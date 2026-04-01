@@ -29,10 +29,11 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'dev-secret',
   resave: false,
   saveUninitialized: false,
-  cookie: { 
+  cookie: {
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'none',
-    httpOnly: true }
+    httpOnly: true
+  }
 }));
 
 // Flash Messaging
@@ -55,7 +56,18 @@ app.use('/orders', orderRoutes);
 app.use('/seller', sellerRoutes);
 app.use('/admin', adminRoutes);
 app.use('/reviews', reviewRoutes);
+
+// 404 Handler
+app.use((req, res, next) => {
+  const err = new Error("Page Not Found");
+  err.status = 404;
+  next(err);
+});
+
+// Global Error Handler
 app.use(errorHandler);
+
+export default app;
 
 // Start server
 const PORT = process.env.PORT || 3000;

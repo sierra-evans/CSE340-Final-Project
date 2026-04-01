@@ -46,24 +46,26 @@ export const validateLogin = (req, res, next) => {
 export const validateProduct = (req, res, next) => {
     const { title, description, price, stock_quantity } = req.body;
 
-    if (!title || title.trim() === '') {
-        req.flash('error', 'Product title is required');
+    if (!title || title.trim().length < 3 || title.trim().length > 100) {
+        req.flash('error', 'Product title must be between 3 and 100 characters');
         return res.redirect('back');
     }
 
-    if (!description || description.trim() === '') {
-        req.flash('error', 'Product description is required');
+    if (!description || description.trim().length < 10 || description.trim().length > 1000) {
+        req.flash('error', 'Product description must be between 10 and 1000 characters');
         return res.redirect('back');
     }
 
-    if (!price || isNaN(price) || price <= 0) {
-        req.flash('error', 'Please enter a valid price');
-        return res.redirect('back');
+    const parsedPrice = parseFloat(price);
+    if (isNaN(parsedPrice) || parsedPrice < 0.01 || parsedPrice > 10000) { 
+        req.flash('error', 'Price must be between $0.01 and $10,000'); 
+        return res.redirect('back'); 
     }
 
-    if (!stock_quantity || isNaN(stock_quantity) || stock_quantity < 0) {
-        req.flash('error', 'Please enter a valid stock quantity');
-        return res.redirect('back');
+    const parsedStock = parseInt(stock_quantity);
+    if (isNaN(parsedStock) || parsedStock < 0 || parsedStock > 5000) { 
+        req.flash('error', 'Stock quantity must be between 0 and 5,000'); 
+        return res.redirect('back'); 
     }
 
     next();

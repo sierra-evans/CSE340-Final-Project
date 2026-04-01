@@ -2,14 +2,16 @@
 const errorHandler = (err, req, res, next) => {
     console.error(err.stack);
 
-    // Default error values
+    // If response already sent, pass to default Express handler 
+    if (res.headersSent) { return next(err); }
+
     const status = err.status || 500;
-    const message = err.message || 'Something went wrong';
 
-    // Don't leak error details in production
-    const detail = process.env.NODE_ENV === 'development' ? err.stack : null;
-
-    res.status(status).render('error', { status, message, detail });
+    res.status(status).render("error", { 
+        status, 
+        message: err.message || "Something went wrong", 
+        detail: process.env.NODE_ENV === "development" ? err.stack : null 
+    });
 };
 
 export default errorHandler;
